@@ -9,6 +9,12 @@
 		<el-form-item label="文章标题" prop="title">
 			<el-input v-model="article.title"></el-input>
 		</el-form-item>
+		<el-form-item label="文章标题" prop="title">
+			<!-- <el-input v-model="article.category"></el-input> -->
+			<el-select v-model="article.category" placeholder="请选择文章分类">
+				<el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
+			</el-select>
+		</el-form-item>
 		<el-form-item label="文章内容" prop="body">
 			<el-input type="textarea" v-model="article.body" rows="10" show-word-limit></el-input>
 		</el-form-item>
@@ -33,10 +39,12 @@ export default {
 				],
 				body: [{ required: true, message: '请输入文章内容', trigger: 'change' }],
 			},
+			options: [],
 		};
 	},
 	created() {
 		this.getArticle();
+		this.getCategorys();
 	},
 	methods: {
 		getArticle() {
@@ -50,7 +58,7 @@ export default {
 			this.$refs[formName].validate(valid => {
 				if (valid) {
 					//文章更新时间
-					this.article.updateDate = new Date()
+					this.article.updateDate = new Date();
 					this.$http.put(`articles/${this.$route.params.id}`, this.article).then(res => {
 						if (res.data.status === '200' && res.data.message === 'success') {
 							this.$message({
@@ -67,6 +75,23 @@ export default {
 		},
 		goArticleList() {
 			this.$router.push('/articles/index');
+		},
+		getCategorys() {
+			this.$http.get('categorys/list').then(res => {
+				let categorys = [];
+				if (res.data.status === '200' && res.data.message === 'success') {
+					let arr = res.data.data;
+					arr.map(item => {
+						if (item.parent) {
+							categorys.push({
+								id: item._id,
+								name: item.name,
+							});
+						}
+					});
+				}
+				this.options = categorys;
+			});
 		},
 	},
 };

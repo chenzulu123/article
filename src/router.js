@@ -8,6 +8,7 @@ import EditArticle from './views/Article/EditArticle.vue'
 import UserList from './views/User/index.vue'
 import EditUser from './views/User/Edituser.vue'
 import CreateUser from './views/User/CreateUser.vue'
+import EditUserInfo from './views/User/EditUserInfo.vue'
 import Login from './views/Login.vue'
 // import EditArticle from './views/EditArticle.vue'
 // import EditArticle from './views/EditArticle.vue'
@@ -60,11 +61,17 @@ export default new Router({
       path: '/articles/:id/edit',
       name: 'edit-article',
       component: EditArticle
-    }, {
+    }, 
+    {
       path: '/articles/:id/edit',
       name: 'edit-article',
       component: EditArticle
     },
-
+    {
+      path: '/userInfo/:id/edit',
+      name: 'edit-userInfo',
+      component: EditUserInfo,
+      props:true
+    },
   ]
 })

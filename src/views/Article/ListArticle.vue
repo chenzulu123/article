@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<!-- 创建分类 -->
-
 		<div style="margin-top: 15px;margin-bottom:20px;">
 			<el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
 				<el-button slot="append" icon="el-icon-search"></el-button>
@@ -33,7 +32,7 @@
 								<span>{{ props.row.updateDate | dateFormat}}</span>
 							</el-form-item>
 							<el-form-item label="文章分类:">
-								<span>{{ props.row.category}}</span>
+								<span>{{ props.row.category.name}}</span>
 							</el-form-item>
 						</el-form>
 					</template>
